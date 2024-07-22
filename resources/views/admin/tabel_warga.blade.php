@@ -134,7 +134,8 @@
                         <button type="submit" class="btn-white-green-border">Cetak Data</button>
                     </div>
                     <div class="form-group">
-                        <a href="{{ route('warga.cetak', request()->query()) }}" class=" " target="_blank">Cetak Semua
+                        <a href="{{ route('warga.cetak', request()->query()) }}" class="btn-white-green-border"
+                            target="_blank">Cetak Semua
                             Data</a>
                     </div>
                 </div>

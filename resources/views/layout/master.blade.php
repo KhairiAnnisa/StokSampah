@@ -205,17 +205,17 @@
                     </a>
                     <ul id="data_laporan" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="laporanpemasukan">
+                            <a href="/laporanpemasukan">
                                 <i class="bi bi-circle"></i><span>Laporan Pemasukan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="laporanpengeluaran">
+                            <a href="/laporanpengeluaran">
                                 <i class="bi bi-circle"></i><span>Laporan Pengeluaran</span>
                             </a>
                         </li>
                         <li>
-                            <a href="laporan_labarugi">
+                            <a href="/laporan_labarugi">
                                 <i class="bi bi-circle"></i><span>Laporan Laba/Rugi</span>
                             </a>
                         </li>

@@ -86,10 +86,9 @@
                             <div class="form-group">
                                 <label for="id_warga">Nama Warga</label>
                                 <select id="id_warga" name="id_warga" class="form-control" required>
-                                    <option value="">Pilih Warga</option>
-                                    @foreach ($iuran as $warga)
-                                        <option value="{{ $warga->id_iuransampah }}">{{ $warga->warga[0]->nama_warga }}
-                                        </option>
+                                    <option value="" disabled selected>Pilih Nama Warga</option>
+                                    @foreach ($warga as $item)
+                                        <option value="{{ $item->id_warga }}">{{ $item->nama_warga }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -153,7 +152,8 @@
                                                 <td>{{ $iuran->warga[0]->nama_warga ?? 'N/A' }}</td>
                                                 <td>{{ $iuran->bulan }}</td>
                                                 <td>{{ $iuran->tgl_iuransampah }}</td>
-                                                <td>{{ $iuran->harga }}</td>
+                                                <td>Rp {{ number_format($iuran['harga'], 0, ',', '.') }}
+                                                </td>
                                                 <td>{{ $iuran->status }}</td>
                                                 <td>
                                                     <a href="{{ route('iuran.edit', $iuran->id_iuransampah) }}"

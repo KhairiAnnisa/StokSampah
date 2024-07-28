@@ -102,8 +102,14 @@
 
                                 <div class="form-group">
                                     <label for="edit_kategori">Kategori</label>
-                                    <input type="text" id="edit_kategori" name="kategori" class="form-control"
-                                        value="{{ $sampah->kategori }}" required>
+                                    <select id="edit_kategori" name="kategori" class="form-control" required>
+                                        <option value="Organik" {{ $sampah->kategori == 'Organik' ? 'selected' : '' }}>
+                                            Organik
+                                        </option>
+                                        <option value="Anorganik" {{ $sampah->kategori == 'Anorganik' ? 'selected' : '' }}>
+                                            Anorganik
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <button type="button" class="btn-white-green-border" onclick="goBack()">Batal</button>

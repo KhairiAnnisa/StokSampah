@@ -16,7 +16,9 @@ class Sampah_MasukController extends Controller
     public function index()
     {
         $smph_msks = Sampah_Masuk::with(['sampah', 'sampah_kotor'])->get();
-        return view('admin.tabel_sampahbersih ', compact('smph_msks'));
+        $sampah = Sampah::all();
+        $smph_ktr = Sampah_Kotor::all();
+        return view('admin.tabel_sampahbersih', compact('smph_msks', 'sampah', 'smph_ktr'));
     }
 
     /**
@@ -75,7 +77,7 @@ class Sampah_MasukController extends Controller
         $smph_msk = Sampah_Masuk::findOrFail($id);
         $sampah = Sampah::all();
         $smph_ktr = Sampah_Kotor::all();
-        
+
         return view('admin.edit_sampahbersih', compact('smph_msk', 'sampah', 'smph_ktr'));
     }
 

@@ -105,10 +105,9 @@
                             <div class="form-group">
                                 <label for="id_sampah">Nama Sampah</label>
                                 <select id="id_sampah" name="id_sampah" class="form-control" required>
-                                    <option value="">Pilih Sampah</option>
-                                    @foreach ($smph_kel as $sampah)
-                                        <option value="{{ $sampah->id_sampahkeluar }}">{{ $sampah->sampah[0]->nama_sampah }}
-                                        </option>
+                                    <option value="" disabled selected>Pilih Nama Sampah</option>
+                                    @foreach ($sampah as $item)
+                                        <option value="{{ $item->id_sampah }}">{{ $item->nama_sampah }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -119,7 +118,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="berat_sampahkeluar">Berat Sampah</label>
+                                <label for="berat_sampahkeluar">Berat Sampah (Kg)</label>
                                 <input id="berat_sampahkeluar" name="berat_sampahkeluar" class="form-control" required>
                             </div>
 
@@ -155,7 +154,7 @@
                                             <th>Tanggal</th>
                                             <th>Nama Sampah</th>
                                             <th>Harga Sampah</th>
-                                            <th>Berat Sampah</th>
+                                            <th>Berat Sampah (Kg)</th>
                                             <th>Total Sampah Keluar</th>
                                             <th>Jenis Sampah</th>
                                             <th>Aksi</th>
@@ -166,9 +165,11 @@
                                             <tr>
                                                 <td>{{ $smph_kel->tgl_sampahkeluar }}</td>
                                                 <td>{{ $smph_kel->sampah[0]->nama_sampah ?? 'N/A' }}</td>
-                                                <td>{{ $smph_kel->harga_sampahkeluar }}</td>
-                                                <td>{{ $smph_kel->berat_sampahkeluar }}</td>
-                                                <td>{{ $smph_kel->total_sampahkeluar }}</td>
+                                                <td>Rp {{ number_format($smph_kel['harga_sampahkeluar'], 0, ',', '.') }}
+                                                </td>
+                                                <td>{{ $smph_kel->berat_sampahkeluar }} Kg</td>
+                                                <td>Rp {{ number_format($smph_kel['total_sampahkeluar'], 0, ',', '.') }}
+                                                </td>
                                                 <td>{{ $smph_kel->jenis }}</td>
 
                                                 <td>

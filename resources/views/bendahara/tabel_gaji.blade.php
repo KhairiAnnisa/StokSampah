@@ -84,6 +84,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="id_karyawan">Nama Karyawan</label>
+                                <select id="id_karyawan" name="id_karyawan" class="form-control" required>
+                                    <option value="" disabled selected>Pilih Karyawan</option>
+                                    @foreach ($karyawan as $item)
+                                        <option value="{{ $item->id_karyawan }}">{{ $item->nama_karyawan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="upah">Upah</label>
                                 <input id="upah" name="upah" class="form-control" required>
                             </div>
@@ -91,17 +101,6 @@
                             <div class="form-group">
                                 <label for="tgl_gaji">Tanggal</label>
                                 <input type="date" id="tgl_gaji" name="tgl_gaji" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="id_karyawan">Nama Karyawan</label>
-                                <select id="id_karyawan" name="id_karyawan" class="form-control" required>
-                                    <option value="">Pilih Karyawan</option>
-                                    @foreach ($gaji as $karyawan)
-                                        <option value="{{ $karyawan->id_gaji }}">{{ $karyawan->karyawan[0]->nama_karyawan }}
-                                        </option>
-                                    @endforeach
-                                </select>
                             </div>
 
                             <button type="button" class="btn-white-green-border" data-dismiss="modal">Batal</button>
@@ -134,7 +133,8 @@
                                         @foreach ($gaji as $gaji)
                                             <tr>
                                                 <td>{{ $gaji->karyawan[0]->nama_karyawan ?? 'N/A' }}</td>
-                                                <td>{{ $gaji->upah }}</td>
+                                                <td>Rp {{ number_format($gaji['upah'], 0, ',', '.') }}
+                                                </td>
                                                 <td>{{ $gaji->tgl_gaji }}</td>
                                                 <td>
                                                     <a href="{{ route('gaji.edit', $gaji->id_gaji) }}"

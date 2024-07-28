@@ -65,9 +65,6 @@
         </div><!-- End Page Title -->
 
         <section class="section">
-            <a href="{{ route('laporan.laba_rugi_index') }}" class="btn btn-secondary mb-3">
-                <i class="fas fa-arrow-left"></i>
-            </a>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">

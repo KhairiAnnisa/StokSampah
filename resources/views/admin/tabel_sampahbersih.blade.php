@@ -90,7 +90,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="total_sampahmasuk">Total Sampah Masuk</label>
+                                <label for="total_sampahmasuk">Total Sampah Masuk (Kg)</label>
                                 <input id="total_sampahmasuk" name="total_sampahmasuk" class="form-control" required>
                             </div>
 
@@ -98,20 +98,18 @@
                                 <label for="id_sampah">Nama Sampah</label>
                                 <select id="id_sampah" name="id_sampah" class="form-control" required>
                                     <option value="" disabled selected>Pilih Nama Sampah</option>
-                                    @foreach ($smph_msks as $sampah)
-                                        <option value="{{ $sampah->id_sampah }}">{{ $sampah->sampah[0]->nama_sampah }}
-                                        </option>
+                                    @foreach ($sampah as $item)
+                                        <option value="{{ $item->id_sampah }}">{{ $item->nama_sampah }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="id_sampahkotor">Total Berat</label>
+                                <label for="id_sampahkotor">Total Berat (Kg)</label>
                                 <select id="id_sampahkotor" name="id_sampahkotor" class="form-control" required>
                                     <option value="" disabled selected>Pilih Total Berat</option>
-                                    @foreach ($smph_msks as $total_berat)
-                                        <option value="{{ $total_berat->total_berat }}">
-                                            {{ $total_berat->sampah_kotor[0]->total_berat }}
+                                    @foreach ($smph_ktr as $total_berat)
+                                        <option value="{{ $total_berat->id_sampahkotor }}">{{ $total_berat->total_berat }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -138,25 +136,24 @@
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
-                                            <th>Tanggal Sampah Masuk</th>
-                                            <th>Total Sampah Masuk</th>
                                             <th>Sampah</th>
-                                            <th>Total Sampah Kotor</th>
+                                            <th>Total Sampah Masuk (Kg)</th>
+                                            <th>Total Sampah Kotor (Kg)</th>
+                                            <th>Tanggal Sampah Masuk</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-sampahbersih">
                                         @foreach ($smph_msks as $smph_msk)
                                             <tr>
-                                                <td>{{ $smph_msk->tgl_sampahmasuk }}</td>
-                                                <td>{{ $smph_msk->total_sampahmasuk }}</td>
                                                 <td>{{ $smph_msk->sampah[0]->nama_sampah ?? 'N/A' }}</td>
-                                                <td>{{ $smph_msk->sampah_kotor[0]->total_berat ?? 'N/A' }}</td>
+                                                <td>{{ $smph_msk->total_sampahmasuk }} Kg</td>
+                                                <td>{{ $smph_msk->sampah_kotor[0]->total_berat ?? 'N/A' }} Kg</td>
+                                                <td>{{ $smph_msk->tgl_sampahmasuk }}</td>
                                                 <td>
                                                     <a href="{{ route('smph_msk.edit', $smph_msk->id_sampahmasuk) }}"
-                                                        class="btn btn-warning btn-sm btn-edit">Edit</button>
+                                                        class="btn btn-warning btn-sm btn-edit">Edit</a>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     </tbody>

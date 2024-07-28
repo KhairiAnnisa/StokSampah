@@ -66,29 +66,29 @@
 
         <div class="container">
             <form action="{{ route('laporan.pengeluaran.cetak') }}" method="GET">
-                <div class="form-row align-items-end">
-                    <div class="form-group col-md-6">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
                         <label for="tanggal_awal">Tanggal Awal</label>
                         <input type="date" id="tanggal_awal" name="tanggal_awal" class="form-control" required>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label for="tanggal_akhir">Tanggal Akhir</label>
                         <input type="date" id="tanggal_akhir" name="tanggal_akhir" class="form-control" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label>Kategori</label><br>
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline col-md-3">
                             <input class="form-check-input" type="checkbox" id="gaji" name="kategori[]" value="gaji">
                             <label class="form-check-label" for="gaji">Gaji</label>
                         </div>
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline col-md-3">
                             <input class="form-check-input" type="checkbox" id="cost" name="kategori[]" value="cost">
                             <label class="form-check-label" for="cost">Cost</label>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" name="filter">Filter</button>
-                <button type="submit" class="btn btn-secondary" name="download_pdf">Cetak Laporan</button>
+                <button type="submit" class="btn-green" name="filter">Filter</button>
+                <button type="submit" class="btn-white-green-border" name="download_pdf">Cetak Laporan</button>
             </form>
         </div>
 

@@ -77,7 +77,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Sampah</th>
-                                            <th>Stok Sampah</th>
+                                            <th>Stok Sampah (Kg)</th>
                                             <th>Kategori</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -86,7 +86,7 @@
                                         @foreach ($sampah as $sampah)
                                             <tr>
                                                 <td>{{ $sampah->nama_sampah }}</td>
-                                                <td>{{ $sampah->stok_sampah }}</td>
+                                                <td>{{ $sampah->stok_sampah }} Kg</td>
                                                 <td>{{ $sampah->kategori }}</td>
                                                 <td>
                                                     <a href="{{ route('sampah.edit', $sampah->id_sampah) }}"
@@ -130,13 +130,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="stok_sampah">Stok Sampah</label>
+                            <label for="stok_sampah">Stok Sampah (Kg)</label>
                             <input id="stok_sampah" name="stok_sampah" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="kategori">Kategori</label>
-                            <input id="kategori" name="kategori" class="form-control" required>
+                            <select id="kategori" name="kategori" class="form-control" required>
+                                <option value="organik">Organik</option>
+                                <option value="anorganik">Anorganik</option>
+                            </select>
                         </div>
 
                         <button type="button" class="btn-white-green-border" data-dismiss="modal">Batal</button>

@@ -15,24 +15,25 @@ class Sampah_KotorController extends Controller
      */
     public function index()
     {
-        // $smph_ktr = Sampah_Kotor::with(['rute'])->paginate(10);
-        // return view('admin.tabel_sampahkotor', compact('smph_ktr'));
+        $smph_ktr = Sampah_Kotor::with(['rute'])->get();
+        $rute = Rute::all();
+        return view('admin.tabel_sampahkotor', compact('smph_ktr', 'rute'));
 
-        try {
-            $smph_ktr = Sampah_Kotor::with('rute')->paginate(10);
+        // try {
+        //     $smph_ktr = Sampah_Kotor::with('rute')->paginate(10);
 
-            // Check if the result is valid
-            if ($smph_ktr === false) {
-                // Handle the error appropriately
-                return response()->json(['error' => 'Query failed'], 500);
-            }
-            // var_dump($smph_ktr);
-            return view('admin.tabel_sampahkotor', compact('smph_ktr'));
-        } catch (\Exception $e) {
-            // Log the error or handle it as needed
-            Log::error($e->getMessage());
-            return response()->json(['error' => 'An error occurred'], 50);
-        }
+        //     // Check if the result is valid
+        //     if ($smph_ktr === false) {
+        //         // Handle the error appropriately
+        //         return response()->json(['error' => 'Query failed'], 500);
+        //     }
+        //     // var_dump($smph_ktr);
+        //     return view('admin.tabel_sampahkotor', compact('smph_ktr'));
+        // } catch (\Exception $e) {
+        //     // Log the error or handle it as needed
+        //     Log::error($e->getMessage());
+        //     return response()->json(['error' => 'An error occurred'], 50);
+        // }
     }
 
     /**
@@ -40,7 +41,8 @@ class Sampah_KotorController extends Controller
      */
     public function create()
     {
-        return view('smph_ktr.create');
+        $rute = Rute::all();
+        return view('smph_ktr.create', compact('rute'));
     }
 
     /**

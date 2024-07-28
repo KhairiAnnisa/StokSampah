@@ -105,28 +105,28 @@
 
             @if (Auth::User()->role == 'ketua')
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="dashboard">
+                    <a class="nav-link collapsed" href="/dashboard">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="tabel_warga">
+                    <a class="nav-link collapsed" href="/tabel_warga">
                         <i class="bi bi-people"></i>
                         <span>Data Warga</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="tabel_karyawan">
+                    <a class="nav-link collapsed" href="/tabel_karyawan">
                         <i class="bi bi-person"></i>
                         <span>Data Karyawan</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="tabel_rute">
+                    <a class="nav-link collapsed" href="/tabel_rute">
                         <i class="fas fa-route"></i>
                         <span>Data Rute</span>
                     </a>
@@ -140,17 +140,17 @@
                     </a>
                     <ul id="data_sampah" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="tabel_stoksampah">
+                            <a href="/tabel_stoksampah">
                                 <i class="bi bi-circle"></i><span>Stok Sampah</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tabel_sampahkotor">
+                            <a href="/tabel_sampahkotor">
                                 <i class="bi bi-circle"></i><span>Sampah Kotor</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tabel_sampahbersih">
+                            <a href="/tabel_sampahbersih">
                                 <i class="bi bi-circle"></i><span>Sampah Bersih</span>
                             </a>
                         </li>
@@ -165,12 +165,12 @@
                     </a>
                     <ul id="data_pemasukan" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="tabel_penjualan">
+                            <a href="/tabel_penjualan">
                                 <i class="bi bi-circle"></i><span>Data Penjualan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tabel_iuransampah">
+                            <a href="/tabel_iuransampah">
                                 <i class="bi bi-circle"></i><span>Iuran Sampah Warga</span>
                             </a>
                         </li>
@@ -185,12 +185,12 @@
                     </a>
                     <ul id="data_pengeluaran" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="tabel_gaji">
+                            <a href="/tabel_gaji">
                                 <i class="bi bi-circle"></i><span>Gaji Karyawan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tabel_cost">
+                            <a href="/tabel_cost">
                                 <i class="bi bi-circle"></i><span>Biaya Operasional</span>
                             </a>
                         </li>
@@ -223,7 +223,7 @@
                 </li><!-- End Components Nav -->
             @elseif(Auth::User()->role == 'bendahara')
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="dashboard">
+                    <a class="nav-link collapsed" href="/dashboard">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span>
                     </a>
@@ -237,12 +237,12 @@
                     </a>
                     <ul id="data_pemasukan" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="tabel_penjualan">
+                            <a href="/tabel_penjualan">
                                 <i class="bi bi-circle"></i><span>Data Penjualan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tabel_iuransampah">
+                            <a href="/tabel_iuransampah">
                                 <i class="bi bi-circle"></i><span>Iuran Sampah Warga</span>
                             </a>
                         </li>
@@ -257,12 +257,12 @@
                     </a>
                     <ul id="data_pengeluaran" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="tabel_gaji">
+                            <a href="/tabel_gaji">
                                 <i class="bi bi-circle"></i><span>Gaji Karyawan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tabel_cost">
+                            <a href="/tabel_cost">
                                 <i class="bi bi-circle"></i><span>Biaya Operasional</span>
                             </a>
                         </li>
@@ -277,17 +277,17 @@
                     </a>
                     <ul id="data_laporan" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="laporanpemasukan">
+                            <a href="/laporanpemasukan">
                                 <i class="bi bi-circle"></i><span>Laporan Pemasukan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="laporanpengeluaran">
+                            <a href="/laporanpengeluaran">
                                 <i class="bi bi-circle"></i><span>Laporan Pengeluaran</span>
                             </a>
                         </li>
                         <li>
-                            <a href="laporan_labarugi">
+                            <a href="/laporan_labarugi">
                                 <i class="bi bi-circle"></i><span>Laporan Laba/Rugi</span>
                             </a>
                         </li>
@@ -295,27 +295,27 @@
                 </li><!-- End Components Nav -->
             @elseif(Auth::User()->role == 'admin')
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="dashboard">
+                    <a class="nav-link collapsed" href="/dashboard">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="tabel_warga">
+                    <a class="nav-link collapsed" href="/tabel_warga">
                         <i class="bi bi-people"></i>
                         <span>Data Warga</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="tabel_karyawan">
+                    <a class="nav-link collapsed" href="/tabel_karyawan">
                         <i class="bi bi-person"></i>
                         <span>Data Karyawan</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="tabel_rute">
+                    <a class="nav-link collapsed" href="/tabel_rute">
                         <i class="fas fa-route"></i>
                         <span>Data Rute</span>
                     </a>
@@ -328,17 +328,17 @@
                 </a>
                 <ul id="data_sampah" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="tabel_stoksampah">
+                        <a href="/tabel_stoksampah">
                             <i class="bi bi-circle"></i><span>Stok Sampah</span>
                         </a>
                     </li>
                     <li>
-                        <a href="tabel_sampahkotor">
+                        <a href="/tabel_sampahkotor">
                             <i class="bi bi-circle"></i><span>Sampah Kotor</span>
                         </a>
                     </li>
                     <li>
-                        <a href="tabel_sampahbersih">
+                        <a href="/tabel_sampahbersih">
                             <i class="bi bi-circle"></i><span>Sampah Bersih</span>
                         </a>
                     </li>

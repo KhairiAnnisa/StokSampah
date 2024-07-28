@@ -82,19 +82,19 @@
                                 <input type="hidden" id="id_user" name="id_user" class="form-control"
                                     value="{{ Auth::user()->id }}" readonly>
                             </div>
+
                             <div class="form-group">
-                                <label for="id_rute">Nama Rute</label>
+                                <label for="id_rute">Pilih Rute</label>
                                 <select id="id_rute" name="id_rute" class="form-control" required>
-                                    <option value="">Pilih Rute</option>
-                                    @foreach ($smph_ktr as $rute)
-                                        <option value="{{ $rute->id_sampahkotor }}">{{ $rute->rute[0]->detail_rute }}
-                                        </option>
+                                    <option value="" disabled selected>Pilih Rute</option>
+                                    @foreach ($rute as $item)
+                                        <option value="{{ $item->id_rute }}">{{ $item->detail_rute }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="total_berat">Total Berat</label>
+                                <label for="total_berat">Total Berat (Kg)</label>
                                 <input id="total_berat" name="total_berat" class="form-control" required>
                             </div>
 
@@ -119,7 +119,7 @@
                                     <thead>
                                         <tr>
                                             <th>Tanggal</th>
-                                            <th>Total Berat</th>
+                                            <th>Total Berat (Kg)</th>
                                             <th>Rute</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -128,7 +128,7 @@
                                         @foreach ($smph_ktr as $smph_ktr)
                                             <tr>
                                                 <td>{{ $smph_ktr->tgl_sampahkotor }}</td>
-                                                <td>{{ $smph_ktr->total_berat }}</td>
+                                                <td>{{ $smph_ktr->total_berat }} Kg</td>
                                                 <td>{{ $smph_ktr->rute[0]->detail_rute ?? 'N/A' }}</td>
                                                 <td>
                                                     <a href="{{ route('smph_ktr.edit', $smph_ktr->id_sampahkotor) }}"

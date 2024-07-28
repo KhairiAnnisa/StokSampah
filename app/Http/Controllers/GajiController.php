@@ -14,8 +14,9 @@ class GajiController extends Controller
      */
     public function index()
     {
-        $gaji = Gaji::with(['karyawan'])->paginate(100);
-        return view('bendahara.tabel_gaji', compact('gaji'));
+        $gaji = Gaji::with(['karyawan'])->get();
+        $karyawan = Karyawan::all();
+        return view('bendahara.tabel_gaji', compact('gaji', 'karyawan'));
     }
 
     /**
@@ -23,7 +24,8 @@ class GajiController extends Controller
      */
     public function create()
     {
-        return view('gaji.create');
+        $karyawan = Karyawan::all();
+        return view('gaji.create', compact('karyawan'));
     }
 
     /**

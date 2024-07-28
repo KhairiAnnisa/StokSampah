@@ -15,8 +15,9 @@ class Iuran_SampahController extends Controller
      */
     public function index()
     {
-        $iuran = Iuran_Sampah::with(['warga'])->paginate(100);
-        return view('bendahara.tabel_iuransampah', compact('iuran'));
+        $iuran = Iuran_Sampah::with(['warga'])->get();
+        $warga = Warga::all();
+        return view('bendahara.tabel_iuransampah', compact('iuran', 'warga'));
     }
 
     /**

@@ -16,7 +16,8 @@ class Sampah_KeluarController extends Controller
     public function index()
     {
         $smph_kel = Sampah_Keluar::with(['sampah'])->get();
-        return view('bendahara.tabel_penjualan', compact('smph_kel'));
+        $sampah = Sampah::all();
+        return view('bendahara.tabel_penjualan', compact('smph_kel', 'sampah'));
     }
 
     /**  

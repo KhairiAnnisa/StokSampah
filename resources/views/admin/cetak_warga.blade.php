@@ -78,12 +78,6 @@
         <h1>Data Warga</h1>
         <p>Laporan ini dibuat pada {{ date('d M Y') }}</p>
 
-        <div class="summary">
-            <h2>Ringkasan Data</h2>
-            <p>Total Warga: {{ $warga->count() }}</p>
-            <!-- Tambahkan informasi distribusi demografi atau statistik lainnya di sini -->
-        </div>
-
         <table>
             <thead>
                 <tr>
@@ -112,6 +106,10 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="summary">
+            <p>Total Warga: {{ $warga->count() }}</p>
+            <!-- Tambahkan informasi distribusi demografi atau statistik lainnya di sini -->
+        </div>
     </div>
 </body>
 

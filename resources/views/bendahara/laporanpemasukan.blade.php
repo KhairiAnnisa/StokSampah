@@ -66,18 +66,18 @@
 
         <div class="container">
             <form action="{{ route('laporan.cetak') }}" method="GET">
-                <div class="form-row align-items-end">
-                    <div class="form-group col-md-4">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
                         <label for="tanggal_awal">Tanggal Awal</label>
                         <input type="date" id="tanggal_awal" name="tanggal_awal" class="form-control" required>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-2">
                         <label for="tanggal_akhir">Tanggal Akhir</label>
                         <input type="date" id="tanggal_akhir" name="tanggal_akhir" class="form-control" required>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-8">
                         <label>Kategori</label><br>
-                        <div class="form-check form-check-inline col-md-4">
+                        <div class="form-check form-check-inline col-md-3">
                             <input class="form-check-input" type="checkbox" id="iuran_sampah" name="kategori[]"
                                 value="iuran_sampah">
                             <label class="form-check-label" for="iuran_sampah">Iuran Sampah</label>
@@ -89,8 +89,8 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" name="filter">Filter</button>
-                <button type="submit" class="btn btn-secondary" name="download_pdf">Cetak Laporan</button>
+                <button type="submit" class="btn-green" name="filter">Filter</button>
+                <button type="submit" class="btn-white-green-border" name="download_pdf">Cetak Laporan</button>
             </form>
         </div>
 

@@ -85,7 +85,7 @@ class Iuran_SampahController extends Controller
         $validator = Validator::make($request->all(), [
             'bulan' => 'string',
             'tgl_iuransampah' => 'date',
-            'status' => 'in:Lunas,Belum Lunas',
+            'status' => 'required|in:lunas,belum_lunas',
             'harga' => 'integer',
             'id_warga' => 'integer',
         ]);

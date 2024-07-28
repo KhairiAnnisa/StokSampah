@@ -36,18 +36,18 @@ class Iuran_SampahController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'bulan' => 'required',
-            'tgl_iuransampah' => 'required',
+            'tgl_iuransampah' => 'required|date',
             'status' => 'required|in:lunas,belum_lunas',
-            'harga' => 'required',
-            'id_warga' => 'required',
+            'harga' => 'required|integer',
+            'id_warga' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
-            echo ($validator->errors());
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         // Simpan data baru ke dalam tabel
-        $iuran = Iuran_Sampah::create([
+        Iuran_Sampah::create([
             'bulan' => $request->bulan,
             'tgl_iuransampah' => $request->tgl_iuransampah,
             'status' => $request->status,
@@ -56,15 +56,6 @@ class Iuran_SampahController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $iuran = Iuran_Sampah::whereId($id)->first();
-        echo ($iuran);
     }
 
     /**
@@ -98,14 +89,13 @@ class Iuran_SampahController extends Controller
         $iuran = Iuran_Sampah::findOrFail($id);
 
         // Update iuran data
-        $iuran->bulan = $request->bulan;
-        $iuran->tgl_iuransampah = $request->tgl_iuransampah;
-        $iuran->status = $request->status;
-        $iuran->harga = $request->harga;
-        $iuran->id_warga = $request->id_warga;
-
-        // Save changes
-        $iuran->save();
+        $iuran->update([
+            'bulan' => $request->bulan,
+            'tgl_iuransampah' => $request->tgl_iuransampah,
+            'status' => $request->status,
+            'harga' => $request->harga,
+            'id_warga' => $request->id_warga,
+        ]);
 
         // Redirect kembali dengan pesan sukses
         return redirect()->route('iuran')->with('success', 'Data Iuran Sampah berhasil diperbarui.');

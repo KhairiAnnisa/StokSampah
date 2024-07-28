@@ -66,7 +66,7 @@
     <main id="main" class="main">
         <div class="data-iuransampah">
             Mengubah Data Iuran Sampah
-        </div><!-- End Page Title -->
+        </div>
 
         <div class="container">
             <div class="row justify-content">
@@ -109,18 +109,17 @@
 
                                 <div class="form-group">
                                     <label for="edit_tgl_iuransampah">Tanggal Pembayaran</label>
-                                    <input type="date" id="edit_tgl_iuransampah" name="tgl_iuransampah" class="form-control"
-                                        value="{{ $iuran->tgl_iuransampah }}" required>
+                                    <input type="date" id="edit_tgl_iuransampah" name="tgl_iuransampah"
+                                        class="form-control" value="{{ $iuran->tgl_iuransampah }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="edit_status">Status</label>
                                     <select id="edit_status" name="status" class="form-control" required>
-                                        <option value="Lunas" {{ $iuran->status == 'Lunas' ? 'selected' : '' }}>Lunas
+                                        <option value="lunas" {{ $iuran->status == 'Lunas' ? 'selected' : '' }}>lunas
                                         </option>
-                                        <option value="Belum Lunas" {{ $iuran->status == 'Belum Lunas' ? 'selected' : '' }}>
-                                            Belum Lunas
-                                        </option>
+                                        <option value="belum_lunas" {{ $iuran->status == 'Belum Lunas' ? 'selected' : '' }}>
+                                            belum lunas</option>
                                     </select>
                                 </div>
 

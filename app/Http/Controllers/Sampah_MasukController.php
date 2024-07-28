@@ -81,6 +81,7 @@ class Sampah_MasukController extends Controller
         return view('admin.edit_sampahbersih', compact('smph_msk', 'sampah', 'smph_ktr'));
     }
 
+
     /**
      * Update the specified resource in storage.
      */

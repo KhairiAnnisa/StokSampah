@@ -62,11 +62,12 @@
         color: white;
     }
 </style>
+
 @section('content')
     <main id="main" class="main">
         <div class="data-sampah">
             Mengubah Data Sampah Bersih
-        </div><!-- End Page Title -->
+        </div>
 
         <div class="container">
             <div class="row justify-content">
@@ -103,29 +104,30 @@
 
                                 <div class="form-group">
                                     <label for="edit_id_sampah">Nama Sampah</label>
-                                    <select id="id_sampah" name="id_sampah" class="form-control" required>
+                                    <select id="edit_id_sampah" name="id_sampah" class="form-control" required>
                                         <option value="">Pilih Sampah</option>
                                         @foreach ($sampah as $item)
                                             <option value="{{ $item->id_sampah }}"
                                                 {{ $smph_msk->id_sampah == $item->id_sampah ? 'selected' : '' }}>
-                                                {{ $item->nama_sampah }}</option>
+                                                {{ $item->nama_sampah }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="edit_id_sampahkotor">Total Sampah Kotor</label>
-                                    <select id="id_sampahkotor" name="id_sampahkotor" class="form-control" required>
+                                    <select id="edit_id_sampahkotor" name="id_sampahkotor" class="form-control" required>
                                         <option value="">Pilih Sampah Kotor</option>
                                         @foreach ($smph_ktr as $item)
                                             <option value="{{ $item->id_sampahkotor }}"
                                                 {{ $smph_msk->id_sampahkotor == $item->id_sampahkotor ? 'selected' : '' }}>
-                                                {{ $item->total_sampahkotor }}
+                                                {{ $item->total_berat }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                
+
                                 <button type="button" class="btn-white-green-border" onclick="goBack()">Batal</button>
                                 <button type="submit" class="btn-green">Update</button>
                             </form>

@@ -13,6 +13,9 @@
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js">
+</script>
+
 
 <style>
     .data-dashboard {
@@ -185,6 +188,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <h5 class="card-title">Grafik Perbandingan Sampah (Minggu Ini)</h5>
+                                    <div class="chart-container">
+                                        <canvas id="perbandinganSampahChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <h5 class="card-title">Persentase Resapan Sampah</h5>
+                                    <div class="chart-container">
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -245,16 +268,14 @@
             data: {
                 labels: @json($sampahMasukByKategori->pluck('kategori')),
                 datasets: [{
-                    data: @json($sampahMasukByKategori->pluck('total')),
+                    data: @json($sampahMasukByKategori->pluck('percentage')),
                     backgroundColor: [
-                        'rgba(64, 81, 59, 0.5)',
-                        'rgba(54, 71, 49, 10)',
-                        // Add more colors if needed
+                        'rgba(64, 81, 59, 0.5)', // Warna untuk Organik
+                        'rgba(54, 71, 49, 10)', // Warna untuk Anorganik
                     ],
                     borderColor: [
-                        'rgba(64, 81, 59, 1)',
-                        'rgba(54, 71, 49, 5)',
-                        // Add more colors if needed
+                        'rgba(64, 81, 59, 1)', // Border warna untuk Organik
+                        'rgba(54, 71, 49, 1)', // Border warna untuk Anorganik
                     ],
                     borderWidth: 2
                 }]
@@ -268,22 +289,133 @@
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem, data) {
-                                let dataset = data.datasets[tooltipItem.datasetIndex];
-                                let total = dataset.data.reduce((previousValue, currentValue) => previousValue +
-                                    currentValue);
-                                let currentValue = dataset.data[tooltipItem.index];
-                                let percentage = Math.round((currentValue / total) * 100);
-                                return `${data.labels[tooltipItem.index]}: ${percentage}%`;
+                                return `${data.labels[tooltipItem.index]}: ${tooltipItem.raw.toFixed(2)}%`;
                             }
                         }
                     },
                     datalabels: {
-                        formatter: (value, ctx) => {
-                            let total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                            let percentage = ((value / total) * 100).toFixed(0) + "%";
-                            return percentage;
-                        },
+                        formatter: (value) => value.toFixed(2) + "%",
                         color: '#fff',
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+
+        const ctxSelisih = document.getElementById('perbandinganSampahChart').getContext('2d');
+        const perbandinganSampahChart = new Chart(ctxSelisih, {
+            type: 'line',
+            data: {
+                labels: @json($labels),
+                datasets: [{
+                        label: 'Total Sampah Kotor',
+                        data: @json($totalBerat),
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        fill: true,
+                    },
+                    {
+                        label: 'Total Sampah Masuk',
+                        data: @json($totalMasuk),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        fill: true,
+                    },
+                    {
+                        label: 'Resapan Sampah',
+                        data: @json($selisih),
+                        backgroundColor: 'rgba(54, 71, 49, 10)',
+                        borderColor: 'rgba(54, 71, 49, 5)',
+                        borderWidth: 1,
+                        fill: true,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                layout: {
+                    padding: {
+                        right: 10,
+                        top: 25,
+                    },
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.raw.toLocaleString() + ' kg';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        formatter: function(value) {
+                            return value.toLocaleString() + ' kg';
+                        },
+                        color: '#000',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + ' kg';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+        const ctxPie = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['Total Sampah Kotor', 'Total Sampah Masuk', 'Resapan Sampah'],
+                datasets: [{
+                    data: [{{ $persenSampahKotor }}, {{ $persenSampahMasuk }}, {{ $persenSelisih }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 71, 49, 10)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 71, 49, 5)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        formatter: function(value) {
+                            return value.toFixed(2) + '%';
+                        },
+                        color: '#000',
+                        font: {
+                            weight: 'bold'
+                        },
+                        align: 'center',
                     }
                 }
             },

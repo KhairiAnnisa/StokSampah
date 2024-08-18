@@ -56,8 +56,40 @@ class Sampah_MasukController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');
-
         // echo ($smph_msk);
+
+        // $validator = Validator::make($request->all(), [
+        //     'tgl_sampahmasuk' => 'required|date',
+        //     'total_sampahmasuk' => 'required|numeric',
+        //     'id_sampah' => 'required|integer',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+
+        // // Temukan Sampah Kotor yang sesuai untuk tanggal yang sama
+        // $smph_ktr = Sampah_Kotor::where('tgl_sampahkotor', $request->tgl_sampahmasuk)->first();
+
+        // if ($smph_ktr) {
+        //     // Buat entri baru Sampah Masuk atau perbarui yang sudah ada
+        //     $smph_msk = Sampah_Masuk::updateOrCreate(
+        //         ['tgl_sampahmasuk' => $request->tgl_sampahmasuk],
+        //         [
+        //             'total_sampahmasuk' => DB::raw('total_sampahmasuk + ' . $request->total_sampahmasuk),
+        //             'id_sampah' => $request->id_sampah,
+        //             'id_sampahkotor' => $smph_ktr->id,
+        //         ]
+        //     );
+
+        //     // Kurangi total_berat di Sampah Kotor
+        //     $smph_ktr->total_berat -= $request->total_sampahmasuk;
+        //     $smph_ktr->save();
+        // } else {
+        //     return redirect()->back()->with('error', 'Tidak ditemukan Sampah Kotor yang sesuai untuk tanggal tersebut');
+        // }
+
+        // return redirect()->back()->with('success', 'Data Sampah Masuk berhasil ditambahkan dan terkait dengan Sampah Kotor');
     }
 
     /**

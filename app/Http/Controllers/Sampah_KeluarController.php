@@ -36,37 +36,49 @@ class Sampah_KeluarController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'tgl_sampahkeluar' => 'required|date',
-            'harga_sampahkeluar' => 'required',
-            'berat_sampahkeluar' => 'required',
-            'total_sampahkeluar' => 'required',
+            'harga_sampahkeluar' => 'required|numeric',
+            'berat_sampahkeluar' => 'required|numeric|min:0',
             'jenis' => 'required|in:penjualan_sampah,penjualan_magot',
-            'id_sampah' => 'required',
+            'id_sampah' => 'required|exists:sampah,id_sampah',
         ]);
 
         if ($validator->fails()) {
             echo ($validator->errors());
         }
 
-        // Simpan data baru ke dalam tabel
+        // Ambil data sampah yang dipilih
+        $sampah = Sampah::find($request->id_sampah);
+
+        // Validasi stok sampah
+        if ($request->berat_sampahkeluar > $sampah->stok_sampah) {
+            return redirect()->back()->with('error', 'Stok sampah tidak mencukupi!')->withInput();
+        }
+
+        // Simpan data sampah keluar
         Sampah_Keluar::create([
             'tgl_sampahkeluar' => $request->tgl_sampahkeluar,
             'harga_sampahkeluar' => $request->harga_sampahkeluar,
             'berat_sampahkeluar' => $request->berat_sampahkeluar,
-            'total_sampahkeluar' => $request->total_sampahkeluar,
+            'total_sampahkeluar' => $request->harga_sampahkeluar * $request->berat_sampahkeluar,
             'jenis' => $request->jenis,
             'id_sampah' => $request->id_sampah,
         ]);
 
+        // Kurangi stok sampah
+        $sampah->stok_sampah -= $request->berat_sampahkeluar;
+        $sampah->save();
+
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $smph_kel = Sampah_Keluar::whereId($id)->first();
-        echo ($smph_kel);
+        $smph_kel = Sampah_Keluar::findOrFail($id);
+        return view('bendahara.tabel_penjualan', compact('smph_kel', 'sampah'));
     }
 
     /**
@@ -91,7 +103,7 @@ class Sampah_KeluarController extends Controller
             'harga_sampahkeluar' => 'integer',
             'berat_sampahkeluar' => 'integer',
             'total_sampahkeluar' => 'integer',
-            'jenis' => 'enum',
+            'jenis' => 'required|in:penjualan_sampah,penjualan_magot',
             'id_sampah' => 'integer',
         ]);
 

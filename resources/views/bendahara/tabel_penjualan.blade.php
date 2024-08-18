@@ -95,6 +95,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
                         <form action="/smph_kel" id="formTambahDataForm" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -107,9 +120,12 @@
                                 <select id="id_sampah" name="id_sampah" class="form-control" required>
                                     <option value="" disabled selected>Pilih Nama Sampah</option>
                                     @foreach ($sampah as $item)
-                                        <option value="{{ $item->id_sampah }}">{{ $item->nama_sampah }}</option>
+                                        <option value="{{ $item->id_sampah }}" data-stok="{{ $item->stok_sampah }}">
+                                            {{ $item->nama_sampah }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                <small id="stok_info" class="form-text text-muted"></small>
                             </div>
 
                             <div class="form-group">
@@ -120,6 +136,8 @@
                             <div class="form-group">
                                 <label for="berat_sampahkeluar">Berat Sampah (Kg)</label>
                                 <input id="berat_sampahkeluar" name="berat_sampahkeluar" class="form-control" required>
+                                <small id="stok_not_enough" class="form-text text-danger" style="display:none;">Stok tidak
+                                    mencukupi!</small>
                             </div>
 
                             <div class="form-group">
@@ -188,4 +206,29 @@
             </div>
         </section>
     </main><!-- End #main -->
+    <script>
+        $('#id_sampah').on('change', function() {
+            var stok = $(this).find(':selected').data('stok');
+            $('#stok_info').text('Stok yang tersedia: ' + stok + ' Kg');
+        });
+
+        $('#berat_sampahkeluar').on('input', function() {
+            var stok = $('#id_sampah').find(':selected').data('stok');
+            var berat = $(this).val();
+            if (berat > stok) {
+                $('#stok_not_enough').show();
+            } else {
+                $('#stok_not_enough').hide();
+            }
+        });
+
+        $('#formTambahDataForm').on('submit', function(event) {
+            var stok = $('#id_sampah').find(':selected').data('stok');
+            var berat = $('#berat_sampahkeluar').val();
+            if (berat > stok) {
+                event.preventDefault();
+                alert('Stok tidak mencukupi! Silahkan periksa kembali.');
+            }
+        });
+    </script>
 @endsection

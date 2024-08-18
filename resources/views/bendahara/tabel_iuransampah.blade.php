@@ -11,7 +11,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-    .data-gaji {
+    .data-iuran {
         background-color: #7C9070;
         color: white;
         padding: 10px 50px;
@@ -60,9 +60,9 @@
 
 @section('content')
     <main id="main" class="main">
-        <div class="data-gaji">
+        <div class="data-iuran">
             Data Iuran Sampah Warga
-        </div><!-- End Page Title -->
+        </div>
 
         <!-- Modal Tambah Data -->
         <div class="modal fade" id="tambahDataModal" tabindex="-1" role="dialog" aria-labelledby="tambahDataModalLabel"
@@ -139,25 +139,16 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Warga</th>
-                                            <th>Bulan</th>
-                                            <th>Tanggal Pembayaran</th>
-                                            <th>Harga</th>
-                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="table-iuransampah">
-                                        @foreach ($iuran as $iuran)
+                                    <tbody>
+                                        @foreach ($iuran as $item)
                                             <tr>
-                                                <td>{{ $iuran->warga[0]->nama_warga ?? 'N/A' }}</td>
-                                                <td>{{ $iuran->bulan }}</td>
-                                                <td>{{ $iuran->tgl_iuransampah }}</td>
-                                                <td>Rp {{ number_format($iuran['harga'], 0, ',', '.') }}
-                                                </td>
-                                                <td>{{ $iuran->status }}</td>
+                                                <td>{{ $item->warga[0]->nama_warga ?? 'N/A' }}</td>
                                                 <td>
-                                                    <a href="{{ route('iuran.edit', $iuran->id_iuransampah) }}"
-                                                        class="btn btn-warning btn-sm btn-edit">Edit</button>
+                                                    <a href="{{ route('iuran.detail', $item->id_warga) }}"
+                                                        class="btn btn-info btn-sm">Detail</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -170,5 +161,5 @@
                 </div>
             </div>
         </section>
-    </main><!-- End #main -->
+    </main>
 @endsection

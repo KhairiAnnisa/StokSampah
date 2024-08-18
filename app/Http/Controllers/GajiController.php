@@ -14,8 +14,20 @@ class GajiController extends Controller
      */
     public function index()
     {
-        $gaji = Gaji::with(['karyawan'])->get();
+        // Ambil data gaji terbaru untuk setiap karyawan
+        $gaji = Gaji::select('id_karyawan', \DB::raw('MAX(tgl_gaji) as latest_tgl_gaji'), \DB::raw('MAX(upah) as latest_upah'))
+            ->groupBy('id_karyawan')
+            ->with('karyawan')
+            ->get()
+            ->map(function ($item) {
+                // Format tanggal hanya untuk menampilkan tanggal saja
+                $item->latest_tgl_gaji = \Carbon\Carbon::parse($item->latest_tgl_gaji)->format('Y-m-d');
+                return $item;
+            });
+
+        // Ambil data karyawan
         $karyawan = Karyawan::all();
+
         return view('bendahara.tabel_gaji', compact('gaji', 'karyawan'));
     }
 
@@ -106,5 +118,13 @@ class GajiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function detail($id_karyawan)
+    {
+        $karyawan = Karyawan::findOrFail($id_karyawan);
+        $gaji = Gaji::where('id_karyawan', $id_karyawan)->orderBy('tgl_gaji', 'desc')->get();
+
+        return view('bendahara.detail_gaji', compact('karyawan', 'gaji'));
     }
 }

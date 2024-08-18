@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rute;
 use App\Models\Sampah_Kotor;
+use App\Models\Sampah_Masuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -68,6 +69,40 @@ class Sampah_KotorController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');
+
+        // $validator = Validator::make($request->all(), [
+        //     'tgl_sampahkotor' => 'required|date',
+        //     'total_berat' => 'required|numeric',
+        //     'id_rute' => 'required|integer',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+
+        // // Buat entri baru Sampah Kotor
+        // $smph_ktr = Sampah_Kotor::create([
+        //     'tgl_sampahkotor' => $request->tgl_sampahkotor,
+        //     'total_berat' => $request->total_berat,
+        //     'id_rute' => $request->id_rute,
+        // ]);
+
+        // // Temukan atau buat Sampah Masuk yang sesuai untuk tanggal yang sama
+        // $smph_msk = Sampah_Masuk::firstOrCreate(
+        //     ['tgl_sampahmasuk' => $request->tgl_sampahkotor],
+        //     ['id_sampahkotor' => $smph_ktr->id, 'total_sampahmasuk' => 0]
+        // );
+
+        // // Perbarui total_sampahmasuk pada Sampah Masuk
+        // $smph_msk->total_sampahmasuk += $request->total_berat;
+        // $smph_msk->id_sampahkotor = $smph_ktr->id;
+        // $smph_msk->save();
+
+        // // Kurangi total_berat di Sampah Kotor
+        // $smph_ktr->total_berat -= $request->total_berat;
+        // $smph_ktr->save();
+
+        // return redirect()->back()->with('success', 'Data Sampah Kotor berhasil ditambahkan dan terkait dengan Sampah Masuk');
     }
 
     /**

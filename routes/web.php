@@ -65,6 +65,8 @@ Route::get('/iuran_sampah/{id}/edit', [Iuran_SampahController::class, 'edit'])->
 Route::put('/iuran_sampah/{id}', [Iuran_SampahController::class, 'update'])->name('iuran.update');
 Route::get('/tabel_iuransampah', [Iuran_SampahController::class, 'index'])->name('iuran');
 Route::get('/cetak_iuransampah', [Iuran_SampahController::class, 'cetakPDF'])->name('iuransampah.cetak');
+Route::get('/iuran-sampah/detail/{id_warga}', [Iuran_SampahController::class, 'detail'])->name('iuran.detail');
+
 
 
 Route::post('/sampah', [SampahController::class, 'store'])->name('store');
@@ -92,11 +94,12 @@ Route::get('/cost/{id}/edit', [CostController::class, 'edit'])->name('cost.edit'
 Route::put('/cost/{id}', [CostController::class, 'update'])->name('cost.update');
 Route::get('/tabel_cost', [CostController::class, 'index'])->name('cost');
 
-Route::post('/gaji', [GajiController::class, 'store'])->name('store');
+Route::post('/gaji', [GajiController::class, 'store'])->name('gaji.store');
 Route::get('/gaji/{id}', [GajiController::class, 'show']);
 Route::get('/gaji/{id}/edit', [GajiController::class, 'edit'])->name('gaji.edit');
 Route::put('/gaji/{id}', [GajiController::class, 'update'])->name('gaji.update');
-Route::get('/tabel_gaji', [GajiController::class, 'index'])->name('gaji');
+Route::get('/tabel_gaji', [GajiController::class, 'index'])->name('gaji.index');
+Route::get('gaji/{id_karyawan}/detail', [GajiController::class, 'detail'])->name('gaji.detail');
 
 Route::post('/karyawan', [KaryawanController::class, 'store'])->name('store');
 Route::get('/karyawan/{id}', [KaryawanController::class, 'show']);

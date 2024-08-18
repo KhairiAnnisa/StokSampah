@@ -113,7 +113,7 @@
 
         <section class="section">
             <button id="btnTambahData" class="btn-green" data-toggle="modal" data-target="#tambahDataModal">Tambah
-                Data</button>
+                Data Gaji</button>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -124,21 +124,20 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Karyawan</th>
-                                            <th>Gaji</th>
-                                            <th>Tanggal</th>
+                                            <th>Gaji Terakhir</th>
+                                            <th>Tanggal Terakhir</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="table-gaji">
-                                        @foreach ($gaji as $gaji)
+                                    <tbody>
+                                        @foreach ($gaji as $g)
                                             <tr>
-                                                <td>{{ $gaji->karyawan[0]->nama_karyawan ?? 'N/A' }}</td>
-                                                <td>Rp {{ number_format($gaji['upah'], 0, ',', '.') }}
-                                                </td>
-                                                <td>{{ $gaji->tgl_gaji }}</td>
+                                                <td>{{ $g->karyawan[0]->nama_karyawan ?? 'N/A' }}</td>
+                                                <td>Rp {{ number_format($g->latest_upah, 0, ',', '.') }}</td>
+                                                <td>{{ $g->latest_tgl_gaji }}</td>
                                                 <td>
-                                                    <a href="{{ route('gaji.edit', $gaji->id_gaji) }}"
-                                                        class="btn btn-warning btn-sm btn-edit">Edit</button>
+                                                    <a href="{{ route('gaji.detail', $g->id_karyawan) }}"
+                                                        class="btn btn-info btn-sm">Detail</a>
                                                 </td>
                                             </tr>
                                         @endforeach

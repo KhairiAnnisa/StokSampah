@@ -32,4 +32,9 @@ class Sampah_Masuk extends Model
     {
         return \Carbon\Carbon::parse($value)->format('Y-m-d');
     }
+
+    // public function sampahKotor()
+    // {
+    //     return $this->belongsTo(Sampah_Kotor::class, 'id_sampahkotor', 'id_sampahkotor');
+    // }
 }

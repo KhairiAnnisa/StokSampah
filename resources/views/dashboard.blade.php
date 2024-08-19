@@ -259,7 +259,6 @@
                     }
                 }
             },
-            plugins: [ChartDataLabels]
         });
 
         const ctxSampah = document.getElementById('sampahKategoriChart').getContext('2d');

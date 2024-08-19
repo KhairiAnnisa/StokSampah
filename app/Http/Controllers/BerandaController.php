@@ -104,9 +104,19 @@ class BerandaController extends Controller
         $totalKeseluruhan = $totalSampahKotor + $totalSampahMasuk + $totalSelisih;
 
         // Menghitung persentase
-        $persenSampahKotor = ($totalSampahKotor / $totalKeseluruhan) * 100;
-        $persenSampahMasuk = ($totalSampahMasuk / $totalKeseluruhan) * 100;
-        $persenSelisih = ($totalSelisih / $totalKeseluruhan) * 100;
+        $totalKeseluruhan = $totalSampahKotor + $totalSampahMasuk + $totalSelisih;
+
+        if ($totalKeseluruhan > 0) {
+            $persenSampahKotor = ($totalSampahKotor / $totalKeseluruhan) * 100;
+            $persenSampahMasuk = ($totalSampahMasuk / $totalKeseluruhan) * 100;
+            $persenSelisih = ($totalSelisih / $totalKeseluruhan) * 100;
+        } else {
+            // Jika total keseluruhan nol, atur persentase ke 0
+            $persenSampahKotor = 0;
+            $persenSampahMasuk = 0;
+            $persenSelisih = 0;
+        }
+
 
 
         return view('dashboard', compact(

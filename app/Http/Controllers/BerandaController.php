@@ -63,26 +63,24 @@ class BerandaController extends Controller
             $item->percentage = ($totalSampahMasuk > 0) ? ($item->total / $totalSampahMasuk) * 100 : 0;
         }
 
-        // Menghitung total sampah kotor per hari selama 7 hari terakhir
-        $sampahKotorHarian = Sampah_Kotor::whereBetween('tgl_sampahkotor', [Carbon::now()->subDays(7), Carbon::now()])
-            ->selectRaw('DATE(tgl_sampahkotor) as date, SUM(total_berat) as total_berat')
-            ->groupBy('date')
-            ->orderBy('date', 'asc')
+        // Menghitung total sampah kotor per bulan selama beberapa bulan terakhir
+        $sampahKotorBulanan = Sampah_Kotor::selectRaw('DATE_FORMAT(tgl_sampahkotor, "%Y-%m") as month, SUM(total_berat) as total_berat')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
             ->get();
 
-        // Menghitung total sampah masuk per hari selama 7 hari terakhir
-        $sampahMasukHarian = Sampah_Masuk::whereBetween('tgl_sampahmasuk', [Carbon::now()->subDays(7), Carbon::now()])
-            ->selectRaw('DATE(tgl_sampahmasuk) as date, SUM(total_sampahmasuk) as total_sampahmasuk')
-            ->groupBy('date')
-            ->orderBy('date', 'asc')
+        // Menghitung total sampah masuk per bulan selama beberapa bulan terakhir
+        $sampahMasukBulanan = Sampah_Masuk::selectRaw('DATE_FORMAT(tgl_sampahmasuk, "%Y-%m") as month, SUM(total_sampahmasuk) as total_sampahmasuk')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
             ->get();
 
-        // Menggabungkan data sampah kotor dan sampah masuk, serta menghitung selisihnya
-        $dataHarian = [];
-        foreach ($sampahKotorHarian as $sampahKotor) {
-            $matchingMasuk = $sampahMasukHarian->firstWhere('date', $sampahKotor->date);
-            $dataHarian[] = [
-                'date' => $sampahKotor->date,
+        // Menggabungkan data sampah kotor dan sampah masuk, serta menghitung selisihnya per bulan
+        $dataBulanan = [];
+        foreach ($sampahKotorBulanan as $sampahKotor) {
+            $matchingMasuk = $sampahMasukBulanan->firstWhere('month', $sampahKotor->month);
+            $dataBulanan[] = [
+                'month' => $sampahKotor->month,
                 'total_berat' => $sampahKotor->total_berat,
                 'total_sampahmasuk' => $matchingMasuk ? $matchingMasuk->total_sampahmasuk : 0,
                 'selisih' => $sampahKotor->total_berat - ($matchingMasuk ? $matchingMasuk->total_sampahmasuk : 0)
@@ -90,10 +88,15 @@ class BerandaController extends Controller
         }
 
         // Konversi data ke format yang sesuai untuk Chart.js
-        $labels = array_column($dataHarian, 'date');
-        $totalBerat = array_column($dataHarian, 'total_berat');
-        $totalMasuk = array_column($dataHarian, 'total_sampahmasuk');
-        $selisih = array_column($dataHarian, 'selisih');
+        $labels = array_map(function ($month) {
+            return Carbon::createFromFormat('Y-m', $month)->translatedFormat('F');
+        }, array_column($dataBulanan, 'month'));
+
+        $totalBerat = array_column($dataBulanan, 'total_berat');
+        $totalMasuk = array_column($dataBulanan, 'total_sampahmasuk');
+        $selisih = array_column($dataBulanan, 'selisih');
+
+
 
         // Menghitung total keseluruhan
         $totalSampahKotor = array_sum($totalBerat);

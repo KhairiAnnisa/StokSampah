@@ -191,7 +191,7 @@
                         <div class="col-md-6">
                             <div class="card card-custom">
                                 <div class="card-body">
-                                    <h5 class="card-title">Grafik Perbandingan Sampah (Minggu Ini)</h5>
+                                    <h5 class="card-title">Grafik Perbandingan Sampah</h5>
                                     <div class="chart-container">
                                         <canvas id="perbandinganSampahChart"></canvas>
                                     </div>
@@ -304,7 +304,7 @@
 
         const ctxSelisih = document.getElementById('perbandinganSampahChart').getContext('2d');
         const perbandinganSampahChart = new Chart(ctxSelisih, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: @json($labels),
                 datasets: [{
